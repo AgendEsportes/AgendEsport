@@ -8,18 +8,18 @@ Todo material está publicado sob licença [GPL-3.0](https://www.gnu.org/license
 
 ### Artefatos do Projeto
 
-* [Documento de visão]
+* [Documento de visão](https://github.com/AgendEsportes/AgendEsport/blob/main/docs/visao_do_produto.md)
 
 * Documento de Requisitos
 
-* [Diagrama de casos de uso]
+* [Diagrama de casos de uso](https://github.com/AgendEsportes/AgendEsport/blob/main/docs/diagramas/Diagrama%20Casos%20de%20Uso.png)
 
 * Detalhamento de casos de uso 
 
-  1. [Abrir Agenda do Dia]
+  1. [Abrir Agenda do Dia](https://github.com/AgendEsportes/AgendEsport/blob/main/docs/casos_de_uso/cdu_abrir_agenda_do_dia.md)
 
-  2. [Consultar Agenda do Dia]
+  2. [Consultar Agenda do Dia](https://github.com/AgendEsportes/AgendEsport/blob/main/docs/casos_de_uso/cdu_consultar_agenda_do_dia.md)
 
-  3. [Dashboard de Agenda]
-* [Diagrama de classes de domínio]
+  3. [Dashboard de Agenda](https://github.com/AgendEsportes/AgendEsport/blob/main/docs/casos_de_uso/cdu_dashboard_de_agenda.md)
+* [Diagrama de classes de domínio](https://github.com/AgendEsportes/AgendEsport/blob/main/docs/diagramas/DiagramaClasses.pdf)
 * Diagrama de arquitetura
