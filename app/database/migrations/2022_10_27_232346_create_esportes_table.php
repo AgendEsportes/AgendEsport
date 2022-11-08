@@ -16,6 +16,10 @@ return new class extends Migration
         Schema::create('esportes', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
+            $table->string('nome');
+            $table->date('data');
+            $table->timestamp('horario')->nullable();
+
         });
     }
 
