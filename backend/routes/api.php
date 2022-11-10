@@ -15,3 +15,5 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::post('register', 'UserController@store');
+
+Route::post('logout', 'UserController@logout')->name('users.logout');

@@ -6,6 +6,9 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Tymon\JWTAuth\Contracts\JWTSubject;
+use JWTAuth;
+use Carbon\Carbon;
+use Tymon\JWTAuth\Exceptions\JWTException;
 
 class User extends Authenticatable implements JWTSubject
 {
@@ -44,13 +47,20 @@ class User extends Authenticatable implements JWTSubject
             'password' => Hash::make($fields['password']),
         ]);
     }
-    
+
     public function login($credentials){
-        if (!$token = JWTAuth::attempt($credentials)) {
+        if (!$token = JWTAuth::attempt($credentials, ['exp' => Carbon::now()->addDays(1)->timestamp])) {
             throw new \Exception('Credencias incorretas, verifique-as e tente novamente.', -404);
         }
         return $token;
     }
+
+    public function logout($token){
+        if (!JWTAuth::invalidate($token)) {
+            throw new \Exception('Erro. Tente novamente.', -404);
+        }
+    }
+
 
     public function getJWTIdentifier()
     {
@@ -61,4 +71,13 @@ class User extends Authenticatable implements JWTSubject
     {
         return [];
     }
+
+    public function tasklist(){
+        return $this->hasMany('App\TaskList', 'user_id', 'id');
+    }
+
+    public function tasks(){
+    return $this->hasMany('App\Tasks');
+    }
+
 }
