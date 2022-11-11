@@ -1,4 +1,4 @@
-import React from 'react';
+/*import React from 'react';
 
 import './global.css';
 
@@ -10,4 +10,4 @@ function App() {
   );
 }
 
-export default App;
+export default App;*/

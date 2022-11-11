@@ -1,18 +1,21 @@
 import React from 'react';
-import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route} from 'react-router-dom'
+
 
 import Logon from './pages/Logon';
 import Register from './pages/Register';
-import Lists from './pages/Lists';
+//import Lists from './pages/Lists';
+import { FiLayout } from 'react-icons/fi';
 
-export default function Routes() {
+export default function Rotas() {
   return (
-    <BrowserRouter>
-      <Switch>
-        <Route path="/" exact component={Logon} />
-        <Route path="/register" component={Register} />
-        <Route path="/lists" component={Lists} />
-      </Switch>
-    </BrowserRouter>
+    <Router>
+      <FiLayout>
+      <Routes>
+        <Route path="/" element={<Logon/>} />
+        <Route path="/register" element={(<Register/>)} />
+      </Routes>
+      </FiLayout>
+    </Router>
   );
 }
