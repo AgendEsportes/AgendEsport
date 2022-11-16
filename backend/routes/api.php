@@ -14,6 +14,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::post('register', 'UserController@store');
-
-Route::post('logout', 'UserController@logout')->name('users.logout');
+use App\Http\Controllers\UserController;
+Route::post('register', [UserController::class, 'store']);
+Route::post('logout', [UserController::class, 'logout'])->name('users.logout');
