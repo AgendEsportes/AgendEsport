@@ -41,14 +41,14 @@ export default function Register() {
     <div className="register-container">
       <div className="content">
         <section>
-          <h1>Cadastro</h1>
-          <p>Faça seu cadastro, entre na plataforma e organize a suas finanças.</p>
+          <a>Cadastro</a>
 
-          <Link className="back-link" to="/">
-            <FiArrowLeft size={16} color="#3498db" />
-            Já possuo cadastro
-          </Link>
         </section>
+        
+        <Link className="back-link" to="/">
+            <FiArrowLeft size={16} color="#3498db" />
+            <p>Já possuo cadastro</p>
+          </Link>
 
         <form onSubmit={handleRegister}>
           <input 
