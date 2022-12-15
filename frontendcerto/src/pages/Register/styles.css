@@ -1,9 +1,8 @@
 .register-container {
     width: 1072px;
     height: 683.59px;
-  
-    background: #3F3E3E;
     border-radius: 35px;
+    background-color: #3F3E3E;
   
     display: flex;
     align-items: center;
@@ -11,12 +10,7 @@
   }
   
   .register-container .content {
-    width: 100%;
-    padding: 70px;
-    background: #3F3E3E;
-    box-shadow: 0 0 100px rgba(0, 0, 0, 0.1);
-    border-radius: 8px;
-  
+    
     display: flex;
     justify-content: space-between;
     align-items: center;
