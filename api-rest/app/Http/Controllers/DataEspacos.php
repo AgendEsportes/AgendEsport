@@ -46,7 +46,7 @@ Class DataEspacos extends Controller
      */
     public function show($id)
     {
-        //
+        return espacos::findOrFail($id);
     }
 
     /**

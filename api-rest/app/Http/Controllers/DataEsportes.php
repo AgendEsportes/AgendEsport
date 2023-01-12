@@ -46,7 +46,7 @@ Class DataEsporte extends Controller
      */
     public function show($id)
     {
-        //
+        return esportes::findOrFail($id);
     }
 
     /**
