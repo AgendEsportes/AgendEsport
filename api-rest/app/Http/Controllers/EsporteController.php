@@ -19,7 +19,7 @@ class EsporteController extends Controller
     {
         //$esportes = Esporte::all();
         $esportes = $this->esporte->all();
-        return $esportes;
+        return response()->json($esportes, 200);
     }
 
     /**
@@ -42,8 +42,20 @@ class EsporteController extends Controller
     {
         //$esporte = Esporte::create($request->all());
         //dd($esporte);
+        $regras = [
+            'nome' => 'required|unique:esportes',
+            'imagem' => 'required'
+        ];
+
+        $feedback = [
+            'required' => 'O campo :attribute é obrigatório',
+            'nome.unique' => 'O nome do esporte já existe'
+        ];
+
+        $request-> validate($regras, $feedback);
+
         $esporte = $this->esporte->create($request->all());
-        return $esporte;
+        return response()->json($esporte, 201);
     }
 
     /**
@@ -56,9 +68,9 @@ class EsporteController extends Controller
     {
         $esporte = $this->esporte->find($id);
         if($esporte === null) {
-            return ['erro' => 'Recurso Indisponível'];
+            return response()->json(['erro' => 'Recurso Indisponível'], 404 );
         }
-        return $esporte;
+        return response()->json($esporte, 200);
     }
 
     /**
@@ -84,11 +96,11 @@ class EsporteController extends Controller
         $esporte = $this->esporte->find($id);
 
         if($esporte === null) {
-            return ['erro' => 'Não foi possível realizar a atualização. Recurso indisponível'];
+            return response()->json (['erro' => 'Não foi possível realizar a atualização. Recurso indisponível'], 404);
         }
 
         $esporte->update($request->all());
-        return $esporte;
+        return response()->json($esporte, 200);
     }
 
     /**
@@ -102,10 +114,10 @@ class EsporteController extends Controller
         $esporte = $this->esporte->find($id);
 
         if($esporte === null) {
-            return ['erro' => 'Não foi possível realizar a atualização. Recurso indisponível'];
+            return response()->json (['erro' => 'Não foi possível realizar a atualização. Recurso indisponível'], 404);
         }
 
         $esporte->delete();
-        return ['msg' => 'O esporte foi removido com sucesso!'];
+        return response()->json(['msg' => 'O esporte foi removido com sucesso!'], 200);
     }
 }
