@@ -42,17 +42,9 @@ class EsporteController extends Controller
     {
         //$esporte = Esporte::create($request->all());
         //dd($esporte);
-        $regras = [
-            'nome' => 'required|unique:esportes',
-            'imagem' => 'required'
-        ];
+        
 
-        $feedback = [
-            'required' => 'O campo :attribute é obrigatório',
-            'nome.unique' => 'O nome do esporte já existe'
-        ];
-
-        $request-> validate($regras, $feedback);
+        $request-> validate($this->esporte->rules(), $this->esporte->feedback());
 
         $esporte = $this->esporte->create($request->all());
         return response()->json($esporte, 201);
@@ -95,8 +87,25 @@ class EsporteController extends Controller
     {
         $esporte = $this->esporte->find($id);
 
+
         if($esporte === null) {
             return response()->json (['erro' => 'Não foi possível realizar a atualização. Recurso indisponível'], 404);
+        }
+
+        if($request->method() === 'PATCH') {
+
+
+            $regrasDinamicas = array();
+
+
+            dd($marca->rules());
+
+
+            $request->validate($regrasDinamicas, $esporte->feedback());
+
+        } else {
+            $request->validate($esporte->rules(), $esporte->feedback());
+
         }
 
         $esporte->update($request->all());
