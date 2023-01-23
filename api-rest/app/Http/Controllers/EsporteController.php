@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Storage;
 use App\Models\Esporte;
 use Illuminate\Http\Request;
+use App\Repositories\EsporteRepository;
+
 
 class EsporteController extends Controller
 {
@@ -46,7 +49,14 @@ class EsporteController extends Controller
 
         $request-> validate($this->esporte->rules(), $this->esporte->feedback());
 
-        $esporte = $this->esporte->create($request->all());
+        $imagem = $request->file('imagem');
+        $imagem_urn = $imagem->store('imagens_projeto', 'public');
+        
+        $esporte = $this->esporte->create([
+            'nome' => $request->nome,
+            'imagem' => $imagem_urn
+        ]);
+        
         return response()->json($esporte, 201);
     }
 
@@ -97,8 +107,13 @@ class EsporteController extends Controller
 
             $regrasDinamicas = array();
 
+            foreach($esporte->rules() as $input => $regra) { 
 
-            dd($marca->rules());
+                if(array_key_exists($input, $request->all())){
+                   $regrasDinamicas[$input] = $regra;
+                }
+            }
+        
 
 
             $request->validate($regrasDinamicas, $esporte->feedback());

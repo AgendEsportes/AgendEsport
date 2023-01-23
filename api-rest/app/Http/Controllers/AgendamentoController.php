@@ -2,20 +2,34 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\StoreAgendamentoRequest;
-use App\Http\Requests\UpdateAgendamentoRequest;
 use App\Models\Agendamento;
+use Illuminate\Http\Request;
+use App\Repositories\AgendamentoRepository;
 
 class AgendamentoController extends Controller
 {
+    public function __construct(Agendamento $agendamento) {
+        $this->agendamento = $agendamento;
+    }
+
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        $agendamentoRepository = new agendamentoRepository($this->agendamento);
+
+        if($request->has('filtro')) {
+            $agendamentoRepository->filtro($request->filtro);
+        }
+
+        if($request->has('atributos')) {
+            $agendamentoRepository->selectAtributos($request->atributos);
+        } 
+
+        return response()->json($agendamentoRepository->getResultado(), 200);
     }
 
     /**
@@ -31,12 +45,22 @@ class AgendamentoController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \App\Http\Requests\StoreAgendamentoRequest  $request
+     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreAgendamentoRequest $request)
+    public function store(Request $request)
     {
-        //
+        $request->validate($this->agendamento->rules());
+
+        $agendamento = $this->agendamento->create([
+            'usuario_id' => $request->cliente_id,
+            'espaco_id' => $request->carro_id,
+            'data_inicio_periodo' => $request->data_inicio_periodo,
+            'data_final_previsto_periodo' => $request->data_final_previsto_periodo,
+            'data_final_realizado_periodo' => $request->data_final_realizado_periodo,
+        ]);
+
+        return response()->json($agendamento, 201);
     }
 
     /**
@@ -45,9 +69,14 @@ class AgendamentoController extends Controller
      * @param  \App\Models\Agendamento  $agendamento
      * @return \Illuminate\Http\Response
      */
-    public function show(Agendamento $agendamento)
+    public function show($id)
     {
-        //
+        $agendamento = $this->agendamento->find($id);
+        if($agendamento === null) {
+            return response()->json(['erro' => 'Recurso pesquisado não existe'], 404) ;
+        } 
+
+        return response()->json($agendamento, 200);
     }
 
     /**
@@ -64,13 +93,41 @@ class AgendamentoController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \App\Http\Requests\UpdateAgendamentoRequest  $request
+     * @param  \Illuminate\Http\Request  $request
      * @param  \App\Models\Agendamento  $agendamento
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateAgendamentoRequest $request, Agendamento $agendamento)
+    public function update(Request $request, $id)
     {
-        //
+        $agendamento = $this->agendamento->find($id);
+
+        if($agendamento === null) {
+            return response()->json(['erro' => 'Impossível realizar a atualização. O recurso solicitado não existe'], 404);
+        }
+
+        if($request->method() === 'PATCH') {
+
+            $regrasDinamicas = array();
+
+            //percorrendo todas as regras definidas no Model
+            foreach($agendamento->rules() as $input => $regra) {
+                
+                //coletar apenas as regras aplicáveis aos parâmetros parciais da requisição PATCH
+                if(array_key_exists($input, $request->all())) {
+                    $regrasDinamicas[$input] = $regra;
+                }
+            }
+            
+            $request->validate($regrasDinamicas);
+
+        } else {
+            $request->validate($agendamento->rules());
+        }
+        
+        $agendamento->fill($request->all());
+        $agendamento->save();
+        
+        return response()->json($agendamento, 200);
     }
 
     /**
@@ -79,8 +136,16 @@ class AgendamentoController extends Controller
      * @param  \App\Models\Agendamento  $agendamento
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Agendamento $agendamento)
+    public function destroy($id)
     {
-        //
+        $agendamento = $this->agendamento->find($id);
+
+        if($agendamento === null) {
+            return response()->json(['erro' => 'Impossível realizar a exclusão. O recurso solicitado não existe'], 404);
+        }
+
+        $agendamento->delete();
+        return response()->json(['msg' => 'A locação foi removida com sucesso!'], 200);
+        
     }
 }
