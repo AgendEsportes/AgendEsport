@@ -19,7 +19,7 @@ class AgendamentoController extends Controller
      */
     public function index(Request $request)
     {
-        $agendamentoRepository = new agendamentoRepository($this->agendamento);
+        $agendamentoRepository = new AgendamentoRepository($this->agendamento);
 
         if($request->has('filtro')) {
             $agendamentoRepository->filtro($request->filtro);

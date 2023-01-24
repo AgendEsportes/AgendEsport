@@ -35,7 +35,7 @@ class EspacoController extends Controller
             $esporteRepository->selectAtributos($request->atributos);
         } 
 
-        return response()->json($esporteRepository->getResultado(), 200);
+        return response()->json($espacoRepository->getResultado(), 200);
     }
 
     /**
