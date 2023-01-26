@@ -10,6 +10,7 @@ class Usuario extends Model
     use HasFactory;
 
     protected $fillable = ['nome'];
+    protected $table = 'usuario';
 
     public function rules() {
         return [

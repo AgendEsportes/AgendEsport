@@ -1,0 +1,27 @@
+.fotoFundo{
+    position: absolute;
+    background-image: url(../images/basquete.jpeg);
+    width: 650px;
+    height: 475px;
+    left: 500px;
+    top: 700px;
+
+}
+
+.cupreto {
+    position: absolute;
+
+}
+
+.texto-horario {
+    position: absolute;
+    left: 500px;
+    top: 500px;
+}
+
+h1 {
+    position: absolute;
+    color: white;
+    left: 500px;
+    top: 500px;
+}

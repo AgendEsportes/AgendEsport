@@ -1,0 +1,13 @@
+@import "fontawesome.css";
+@import "footer.css";
+@import "navMenuDesktop.css";
+@import "navMenuMobile.css";
+@import "typo.css";
+@import "button.css";
+
+
+
+
+body{
+    background-color: #2A2929;
+}

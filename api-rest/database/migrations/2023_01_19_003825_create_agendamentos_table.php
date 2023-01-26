@@ -23,7 +23,7 @@ return new class extends Migration
         $table->timestamps();
 
         //foreign key (constraints)
-        $table->foreign('usuario_id')->references('id')->on('usuarios');
+        $table->foreign('usuario_id')->references('id')->on('usuario');
         $table->foreign('espaco_id')->references('id')->on('espacos');
     });
 }
