@@ -23,3 +23,9 @@ Todo material está publicado sob licença [GPL-3.0](https://www.gnu.org/license
   3. [Dashboard de Agenda](https://github.com/AgendEsportes/AgendEsport/blob/main/docs/casos_de_uso/cdu_dashboard_de_agenda.md)
 * [Diagrama de classes de domínio](https://github.com/AgendEsportes/AgendEsport/blob/main/docs/diagramas/DiagramaClasses.pdf)
 * Diagrama de arquitetura
+
+### Re-buildar na maquina virtual
+
+1. yarn build
+2. sudo cp -r build/* /var/www/html/
+3. sudo systemctl restart apache2
